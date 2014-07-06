@@ -104,7 +104,7 @@ Rail transport, Roads and road transport
 			<xsd:choice>
 				<xsd:element name="DatedVehicleJourneyRef" type="DatedVehicleJourneyRefStructure">
 					<xsd:annotation>
-						<xsd:documentation>Reference to a dated VEHICLE JOURNEY.</xsd:documentation>
+						<xsd:documentation>Reference to a dated VEHICLE JOURNEY. This will be 'framed' ie be with the data context of the ESTIMATED Timetable. </xsd:documentation>
 					</xsd:annotation>
 				</xsd:element>
 				<xsd:element name="DatedVehicleJourneyIndirectRef" type="DatedVehicleJourneyIndirectRefStructure">
@@ -267,6 +267,11 @@ Rail transport, Roads and road transport
 			<xsd:documentation>Type for Real-time info about a VEHICLE JOURNEY.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
+			<xsd:element name="RecordedAtTime" type="xsd:dateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Time at which data of individual journey was recorded if differet from that of frame.  (+SIRI 2.0.)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
 			<xsd:group ref="LineIdentityGroup"/>
 			<xsd:group ref="EstimatedTimetableAlterationGroup"/>
 			<xsd:group ref="JourneyPatternInfoGroup" minOccurs="0"/>
@@ -278,7 +283,20 @@ Rail transport, Roads and road transport
 			<xsd:group ref="EstimatedRealtimeInfoGroup" minOccurs="0"/>
 			<xsd:group ref="OperationalInfoGroup"/>
 			<xsd:sequence>
+				<xsd:element name="RecordedCalls" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Observed call tmes for that art of teh journey that has already been completed.  (+ SIRI 2..0)</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="RecordedCall" maxOccurs="unbounded"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
 				<xsd:element name="EstimatedCalls" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Estimated call tmes for journey</xsd:documentation>
+					</xsd:annotation>
 					<xsd:complexType>
 						<xsd:sequence>
 							<xsd:element ref="EstimatedCall" maxOccurs="unbounded"/>
@@ -384,6 +402,9 @@ Rail transport, Roads and road transport
 					<xsd:documentation>Estimated time of departure of VEHICLE.</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
+			<xsd:element ref="AimedHeadwayInterval" minOccurs="0"/>
+			<xsd:element ref="ExpectedHeadwayInterval" minOccurs="0"/>
+			<xsd:element ref="ActualHeadwayInterval" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:group>
 	<xsd:complexType name="RecordedCallStructure">

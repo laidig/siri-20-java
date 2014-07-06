@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="xsd/" kind="src" path=""/>
+	<classpathentry kind="src" path="xsd"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/jackson-all-1.8.2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
