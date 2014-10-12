@@ -44,6 +44,7 @@ public class NewStopMonitoring {
 		MonitoredStopVisitStructure msv = new MonitoredStopVisitStructure();
 		MonitoredVehicleJourneyStructure mvj = new MonitoredVehicleJourneyStructure();
 		
+		
 		LineRefStructure line = new LineRefStructure();		
 		line.setValue("Line123");
 		
@@ -75,6 +76,11 @@ public class NewStopMonitoring {
 		NaturalLanguageStringStructure destname = new NaturalLanguageStringStructure();
 		destname.setValue("Stop Z");
 		
+		XMLGregorianCalendar nowTime = df.newXMLGregorianCalendar();
+		mvj.setLocationRecordedAtTime(nowTime);
+		msv.setRecordedAtTime(nowTime);
+		
+		
 		// arrival time 1 minute from now.
 		GregorianCalendar gregorianCalendar = new GregorianCalendar();
 		gregorianCalendar.add(GregorianCalendar.MINUTE, 1);
@@ -105,6 +111,7 @@ public class NewStopMonitoring {
 		msv.setMonitoredVehicleJourney(mvj);
 		
 		smds.getMonitoredStopVisit().add(msv);
+		
 		return smds;
 	}
 

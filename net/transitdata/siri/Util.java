@@ -43,7 +43,7 @@ public class Util {
 	DatatypeFactory df = null;
 	Schema schema = null;
 	// Fill in these with the relevant information. It will change based upon the version of the spec used
-	String xmlPath = "xsd/siri_all_functionalServices.xsd";
+	String xmlPath = "xsd/siriSg.xsd";
 	String schemaName = "uk.org.siri.siri";
 
 
@@ -76,6 +76,7 @@ public class Util {
 			jc = JAXBContext.newInstance(schemaName);
 			Marshaller m = jc.createMarshaller();
 			m.setProperty("jaxb.formatted.output", new Boolean(format));
+			
 			//  Write out the XML
 			m.marshal(o, wrtr);
 			//  Retrieve result
