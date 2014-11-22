@@ -55,9 +55,10 @@ public class NewStopMonitoring {
 		
 		MonitoredCallStructure mc = new MonitoredCallStructure();
 		
+		//STOP_ID
 		StopPointRefStructure stoprefA = new StopPointRefStructure();
 		stoprefA.setValue("OperatorA_1234");
-		
+		//STOP_NAME
 		NaturalLanguageStringStructure stopnameA = new NaturalLanguageStringStructure();
 		stopnameA.setValue("Stop A");
 
@@ -67,11 +68,13 @@ public class NewStopMonitoring {
 		NaturalLanguageStringStructure stopnameB = new NaturalLanguageStringStructure();
 		stopnameB.setValue("Stop B");
 		
+		//Arrival time 1 minute from now
 		gregorianCalendar.add(GregorianCalendar.MINUTE, 1);
 		XMLGregorianCalendar arrtime = df.newXMLGregorianCalendar(gregorianCalendar); 
 		gregorianCalendar.add(GregorianCalendar.MINUTE, 1);
 		XMLGregorianCalendar arrtime2 = df.newXMLGregorianCalendar(gregorianCalendar);
 		
+		//Route_ID
 		LineRefStructure line = new LineRefStructure();		
 		line.setValue("OperatorA_Line123");
 		
@@ -84,13 +87,20 @@ public class NewStopMonitoring {
 		DataFrameRefStructure dfr = new DataFrameRefStructure();
 		dfr.setValue("2014-05-14");
 				
+		//FramedVehicleJourneyRefStructure Trip ID and date that it corresponds to
 		FramedVehicleJourneyRefStructure fvj = new FramedVehicleJourneyRefStructure();
 		fvj.setDatedVehicleJourneyRef(dvj);
 		fvj.setDataFrameRef(dfr);
 		
+		//SHAPE_ID
+		JourneyPatternRefStructure jprs = new JourneyPatternRefStructure();
+		jprs.setValue("Shape_5678");
+		
+		//ROUTE_SHORT_NAME
 		NaturalLanguageStringStructure pln = new NaturalLanguageStringStructure();
 		pln.setValue("Line1");
 		
+		//AGENCY_ID
 		OperatorRefStructure opref = new OperatorRefStructure();
 		opref.setValue("OperatorA");
 		
@@ -103,45 +113,59 @@ public class NewStopMonitoring {
 		NaturalLanguageStringStructure destname = new NaturalLanguageStringStructure();
 		destname.setValue("Stop Z");
 		
+		//Presentable Distance
+		NaturalLanguageStringStructure approaching = new NaturalLanguageStringStructure();
+		approaching.setValue("Approaching");
 		
+		NaturalLanguageStringStructure oneStopAway = new NaturalLanguageStringStructure();
+		oneStopAway.setValue("1 Stop Away");
 		
 		mvj.setLocationRecordedAtTime(nowTime);
 		msv.setRecordedAtTime(nowTime);
 		
 		//minimum
 		
-		mc.setStopPointRef(stoprefA);
+		mc.setNumberOfStopsAway(BigInteger.ZERO);
 		mc.setExpectedArrivalTime(arrtime);
+		mc.setArrivalProximityText(approaching);
 		mc.setDistanceFromStop(BigInteger.valueOf(200));
 		mvj.getPublishedLineName().add(pln);
 		mvj.getDestinationName().add(destname);
 		mvj.setMonitored(true);
+
 		
 		//basic
 		if (detailLevel =="basic" || detailLevel =="normal" || detailLevel == "calls"){
+			mc.setStopPointRef(stoprefA);
+			
 		mvj.setFramedVehicleJourneyRef(fvj);
 		mvj.setDirectionRef(dr);
 		mvj.setOperatorRef(opref);
 		mvj.setLineRef(line);
 		mvj.setProgressRate(ProgressRateEnumeration.NORMAL_PROGRESS);
+		
 		}
+		
 		//normal
 		if (detailLevel =="normal" || detailLevel == "calls"){
 		mc.getStopPointName().add(stopnameA);
 		mvj.setOriginRef(originref);
+		mvj.setJourneyPatternRef(jprs);
 		}
 		
 		//calls
 		if (detailLevel == "calls"){
 		OnwardCallsStructure ocs = new OnwardCallsStructure();
 		OnwardCallStructure oc = new OnwardCallStructure();
-		
+		 	
 		oc.setAimedArrivalTime(arrtime2);
 		oc.setDistanceFromStop(BigInteger.valueOf(400));
 		oc.setStopPointRef(stoprefB);
 		oc.getStopPointName().add(stopnameB);
 		oc.setVisitNumber(BigInteger.valueOf(1));
-		
+
+		oc.setArrivalProximityText(oneStopAway);
+		oc.setNumberOfStopsAway(BigInteger.ONE);
 		
 		ocs.getOnwardCall().add(oc);
 		mvj.setOnwardCalls(ocs);
