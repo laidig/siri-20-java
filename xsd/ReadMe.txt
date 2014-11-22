@@ -20,6 +20,11 @@ This ReadMe describes Changes to the SIRI schema up to  v2.0 version 2.0   since
 ========================
 Changes to  SIRI schema v2.0   since v1.4
 
+ 2014.11.17 Correction (from french feedback)
+ 	* [fr] fix RPC-Document compatibility issue for GetSiri in Document WSDL  (siri_wsProducer-Services.xsd): addition of Request/Answer wrapper
+ 	* [fr] fix WSDL Document issue: GetCapability was using Answer instead of Request (siri_wsProducer-DiscoveryCapability.xsd)
+ 	* [fr] fix RPC-Document compatibility issue for LinesDiscovery,ConnectionLinksDiscovery,StopPointsDiscovery in Document WSDL (siri_wsProducer-DiscoveryCapability.xsd): deletion of useless «xxxAnswerInfo» wrapper
+
  2014.06.20 Correction and revisions from Stenungsund 
        [Part2]
         * [fx] Document SubscriptionTerminatedNotification and add error code. (siri-requests-v2.0.xsd)
@@ -88,7 +93,7 @@ emporal filter siri_situationExchaneg_service.xsd.
 	* [de]  ArrivalTimesDepartureGroup - add ExpectedArrivalPredictionQuality element.
 	* [fr] MonitoredStopVisit Cancellation make VisitNo LineRef DirectionRef optional.
 	* [fr] EstimatedTimetable, COnnectionMonitoring  add detailed level to reqyest
-	* [fr] Make Version number optional with default 2.0.
+
 	* [fr] Make AdditionalVersionRefS to OperationalInfoGroup.
 	* [fr] Add JourneyPatternName The JourneyPatternInfoGroup.  
 	
