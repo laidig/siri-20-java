@@ -17,10 +17,10 @@ public class NewStopPointsDiscovery {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		NewStopMonitoring nsm = new NewStopMonitoring();
+		StopPointsDiscoveryRequestStructure spdrs = new StopPointsDiscoveryRequestStructure();
 		Util ut = new Util();
 		
-		StopMonitoringDeliveryStructure sm = nsm.getStopMonitoring();
+		StopPointsDeliveryStructure sm = spdrs.getStopPointsDetailLevel();
 		String xml = ut.getXMLFromObject(sm, true);
 		String json = ut.getJSONFromObject(sm, true);
 		
@@ -30,4 +30,9 @@ public class NewStopPointsDiscovery {
 
 	}
 	
+	private StopPointsDeliveryStructure getStopPointsRequest(){
+		StopPointsDeliveryStructure spds = new StopPointsDeliveryStructure();
+		
+		return spds;
+	}
 }
