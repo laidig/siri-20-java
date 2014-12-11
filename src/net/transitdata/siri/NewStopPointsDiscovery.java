@@ -88,7 +88,7 @@ public class NewStopPointsDiscovery {
 		
 		
 		AnnotatedStopPointStructure asps = new AnnotatedStopPointStructure();
-		asps.setLines(lines);
+		
 		
 		StopPointRefStructure spr = new StopPointRefStructure();
 		spr.setValue("Agency_1234");
@@ -103,9 +103,11 @@ public class NewStopPointsDiscovery {
 		
 		// normal: "Return name, identifier and coordinates of the stop."
 		asps.setLocation(location);
+		asps.setLines(lines);
+		asps.setMonitored(true);
 		
 		// full : "Return all available data for each stop."
-		
+		// not relevant?
 		
 		
 		asps.setStopPointRef(spr);

@@ -11,7 +11,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.validation.Schema;
 
 import uk.org.siri.siri.*;
-import uk.org.siri.siri.VehicleActivityStructure.MonitoredVehicleJourney;
 
 public class NewStopMonitoring {
 	JAXBContext jc;
