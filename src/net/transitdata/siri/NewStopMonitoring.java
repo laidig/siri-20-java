@@ -31,7 +31,6 @@ public class NewStopMonitoring {
 		String json = ut.getJSONFromObject(sm, true);
 		
 		System.out.println("XML:\n" + xml );
-		//System.out.println("JSON:\n" + json);
 		ut.validateXML(xml);
 
 	}
