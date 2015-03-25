@@ -42,7 +42,22 @@ public class NewLinesRequest {
 	private LinesDeliveryStructure getLinesDdlivery() {
 		LinesDeliveryStructure lds = new LinesDeliveryStructure();
 		 
-
+		DirectionRefStructure direction0 = new DirectionRefStructure();
+		direction0.setValue("0");
+		
+		DirectionRefStructure direction1 = new DirectionRefStructure();
+		direction1.setValue("1");
+		
+		AnnotatedLineStructure l1 = new AnnotatedLineStructure();
+		LineRefStructure line1 = new LineRefStructure();
+		line1.setValue("Agency_1");
+		LineDirectionStructure  lineDirStruct1 = new LineDirectionStructure();
+		lineDirStruct1.setDirectionRef(direction0);
+		lineDirStruct1.setLineRef(line1);
+		
+		l1.setLineRef(line1);
+		
+		lds.getAnnotatedLineRef().add(l1 );
 		
 
 		
