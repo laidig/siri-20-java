@@ -1,6 +1,6 @@
 
 	/**
-	 * This file is utilities for using JAXB/Jackson to generate XML and JSON and validate XML in a more user-friendly fashion than the default.
+	 * This class is utilities for using JAXB/Jackson to generate XML and JSON and validate XML in a more user-friendly fashion than the default.
 	 * It is believed that they are self-explanatory.
 	 * 
 	 */
@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.GregorianCalendar;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -23,6 +24,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -31,7 +33,6 @@ import javax.xml.validation.Validator;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -46,6 +47,11 @@ public class Util {
 	String xmlPath = "xsd/siriSg.xsd";
 	String schemaName = "uk.org.siri.siri";
 
+	public XMLGregorianCalendar getCurrentTime(){
+		GregorianCalendar gregorianCalendar = new GregorianCalendar();
+		XMLGregorianCalendar nowTime = df.newXMLGregorianCalendar(gregorianCalendar);
+		return nowTime;
+	}
 
 	public String getJSONFromObject(Object o, boolean format){
 	String json = null;
@@ -68,6 +74,7 @@ public class Util {
 	}
 	return json;
 }
+	
 	public String getXMLFromObject(Object o, boolean format){
 		StringWriter wrtr = new StringWriter();
 		String xml = null;
@@ -137,6 +144,7 @@ public class Util {
 		}
 
 	}
+	//shows more than one error when validating against XSD.
 	public class ForgivingErrorHandler implements ErrorHandler {
 
 		public void warning(SAXParseException ex) {
