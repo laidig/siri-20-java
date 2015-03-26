@@ -103,7 +103,7 @@ Rail transport, Roads and road transport.
 			<xsd:documentation>Type for TerminateSubscription Notication  </xsd:documentation>
 		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:element name="Notification" type="siri:TerminateSubscriptionRequestStructure"/>
+			<xsd:element name="Notification" type="siri:SubscriptionTerminatedNotificationStructure"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="NotifySubscriptionTerminated" type="WsSubscriptionTerminatedNotificationStructure"/>

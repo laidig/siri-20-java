@@ -20,6 +20,11 @@ This ReadMe describes Changes to the SIRI schema up to  v2.0 version 2.0   since
 ========================
 Changes to  SIRI schema v2.0   since v1.4
 
+ 2015.02.10 Bub fix (from french feedback)
+ 	* [fr] siri_wsProducer-Framework.xsd: use of siri:CheckStatusRequestStructure instead of siri:RequestStructure for checkStatus (one addition non mandatory version attribute)
+ 	* [fr] siri_wsProducer.wsdl: use of siri:CheckStatusRequestStructure instead of siri:RequestStructure for checkStatus (one addition non mandatory version attribute)
+ 	* [fr] siri_wsConsumer-Framework.xsd: update type of NotifySubscriptionTerminated to siri:SubscriptionTerminatedNotificationStructure (instead of TerminateSubbscriptionREquest !)
+
  2014.11.17 Correction (from french feedback)
  	* [fr] fix RPC-Document compatibility issue for GetSiri in Document WSDL  (siri_wsProducer-Services.xsd): addition of Request/Answer wrapper
  	* [fr] fix WSDL Document issue: GetCapability was using Answer instead of Request (siri_wsProducer-DiscoveryCapability.xsd)
