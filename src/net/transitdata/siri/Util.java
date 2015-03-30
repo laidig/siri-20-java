@@ -1,9 +1,9 @@
 
-	/**
-	 * This class is utilities for using JAXB/Jackson to generate XML and JSON and validate XML in a more user-friendly fashion than the default.
-	 * It is believed that they are self-explanatory.
-	 * 
-	 */
+/**
+ * This class is utilities for using JAXB/Jackson to generate XML and JSON and validate XML in a more user-friendly fashion than the default.
+ * It is believed that they are self-explanatory.
+ * 
+ */
 
 package net.transitdata.siri;
 
@@ -54,26 +54,45 @@ public class Util {
 	}
 
 	public String getJSONFromObject(Object o, boolean format){
-	String json = null;
+		String json = null;
 
-	try {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(SerializationConfig.Feature.INDENT_OUTPUT, format);
-		mapper.configure(SerializationConfig.Feature.USE_ANNOTATIONS, true);
-		mapper.setAnnotationIntrospector(new JaxbAnnotationIntrospector());
-		mapper.getSerializationConfig().setSerializationInclusion(org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL);
-		mapper.getSerializationConfig().enable(SerializationConfig.Feature.WRAP_ROOT_VALUE);
-		json = mapper.writeValueAsString(o);
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(SerializationConfig.Feature.INDENT_OUTPUT, format);
+			mapper.configure(SerializationConfig.Feature.USE_ANNOTATIONS, true);
+			mapper.setAnnotationIntrospector(new JaxbAnnotationIntrospector());
+			mapper.getSerializationConfig().setSerializationInclusion(org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL);
+			mapper.getSerializationConfig().enable(SerializationConfig.Feature.WRAP_ROOT_VALUE);
+			json = mapper.writeValueAsString(o);
+		}
+		catch (JsonGenerationException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return json;
 	}
-	catch (JsonGenerationException e) {
-		e.printStackTrace();
-	} catch (JsonMappingException e) {
-		e.printStackTrace();
-	} catch (IOException e) {
-		e.printStackTrace();
+
+	public String getXMLFromObject(Object o, boolean format, ClassLoader context){
+		StringWriter wrtr = new StringWriter();
+		String xml = null;
+
+		try {
+			jc = JAXBContext.newInstance(schemaName, context);
+			Marshaller m = jc.createMarshaller();
+			m.setProperty("jaxb.formatted.output", new Boolean(format));
+			//  Write out the XML
+			m.marshal(o, wrtr);
+			//  Retrieve result
+			xml = wrtr.toString();
+		}
+		catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		return xml;
 	}
-	return json;
-}
 	
 	public String getXMLFromObject(Object o, boolean format){
 		StringWriter wrtr = new StringWriter();
@@ -83,8 +102,8 @@ public class Util {
 			jc = JAXBContext.newInstance(schemaName);
 			Marshaller m = jc.createMarshaller();
 			m.setProperty("jaxb.formatted.output", new Boolean(format));
-			
-			
+
+
 			//  Write out the XML
 			m.marshal(o, wrtr);
 			//  Retrieve result
@@ -159,23 +178,23 @@ public class Util {
 			throw ex;
 		}
 	}
-    public String readFileAsString(String filePath) throws java.io.IOException {
-        StringBuffer fileData = new StringBuffer(6553400);
-        System.out.println(filePath);
-        InputStream is = this.getClass().getResourceAsStream(filePath);
-        
-        System.out.println(is);
-        InputStreamReader isr = new InputStreamReader(is);
-        
-        BufferedReader reader = new BufferedReader(isr);
-        char[] buf = new char[1024];
-        int numRead = 0;
-        while ((numRead = reader.read(buf)) != -1) {
-            String readData = String.valueOf(buf, 0, numRead);
-            fileData.append(readData);
-            buf = new char[1024];
-        }
-        reader.close();
-        return fileData.toString();
-    }
+	public String readFileAsString(String filePath) throws java.io.IOException {
+		StringBuffer fileData = new StringBuffer(6553400);
+		System.out.println(filePath);
+		InputStream is = this.getClass().getResourceAsStream(filePath);
+
+		System.out.println(is);
+		InputStreamReader isr = new InputStreamReader(is);
+
+		BufferedReader reader = new BufferedReader(isr);
+		char[] buf = new char[1024];
+		int numRead = 0;
+		while ((numRead = reader.read(buf)) != -1) {
+			String readData = String.valueOf(buf, 0, numRead);
+			fileData.append(readData);
+			buf = new char[1024];
+		}
+		reader.close();
+		return fileData.toString();
+	}
 }

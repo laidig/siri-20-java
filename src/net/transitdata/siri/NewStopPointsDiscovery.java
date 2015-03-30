@@ -20,16 +20,20 @@ public class NewStopPointsDiscovery {
 	/**
 	 * @param args
 	 */
+	
+	private enum detailLevel {
+		minimum , normal , full
+	}
+	
 	public static void main(String[] args) {
 		
 		//NOTE need a way to exclude lines that are not currently served. URL param? 
-		
 		NewStopPointsDiscovery nspd = new NewStopPointsDiscovery();
 		
 		Util ut = new Util();
 				
 		
-		StopPointsDeliveryStructure spds = nspd.getStopPointsRequest();
+		StopPointsDeliveryStructure spds = nspd.getStopPointsRequest(detailLevel.normal);
 		Siri siri = new Siri();
 		
 		siri.setStopPointsDelivery(spds);
@@ -43,7 +47,7 @@ public class NewStopPointsDiscovery {
 
 	}
 	
-	private StopPointsDeliveryStructure getStopPointsRequest(){
+	private StopPointsDeliveryStructure getStopPointsRequest(detailLevel dl){
 		try {
 			df = DatatypeFactory.newInstance();
 		} catch (DatatypeConfigurationException e1) {
@@ -55,6 +59,9 @@ public class NewStopPointsDiscovery {
 		
 		NaturalLanguageStringStructure stopName = new NaturalLanguageStringStructure();
 		stopName.setValue("Stop A");
+		
+		NaturalLanguageStringStructure stopNameB = new NaturalLanguageStringStructure();
+		stopNameB.setValue("Stop B");
 		
 		DirectionRefStructure direction0 = new DirectionRefStructure();
 		direction0.setValue("0");
@@ -94,24 +101,34 @@ public class NewStopPointsDiscovery {
 		spr.setValue("Agency_1234");
 		
 		
+		StopPointRefStructure sprB = new StopPointRefStructure();
+		sprB.setValue("Agency_5678");
+		AnnotatedStopPointStructure aspsB = new AnnotatedStopPointStructure();
+		aspsB.setStopPointRef(sprB);
+		aspsB.getStopName().add(stopNameB);
+		
+		
 		GregorianCalendar gregorianCalendar = new GregorianCalendar();
 		XMLGregorianCalendar nowTime = df.newXMLGregorianCalendar(gregorianCalendar);
 		
 		// minimum: "Return only the name and identifier of the stop"
+		
 		spds.setResponseTimestamp(nowTime);
 		asps.getStopName().add(stopName);
 		
 		// normal: "Return name, identifier and coordinates of the stop."
+		if (dl == detailLevel.normal || dl == detailLevel.full){
 		asps.setLocation(location);
 		asps.setLines(lines);
 		asps.setMonitored(true);
-		
+		}
 		// full : "Return all available data for each stop."
 		// not relevant?
 		
 		
 		asps.setStopPointRef(spr);
 		spds.getAnnotatedStopPointRef().add(asps);
+		spds.getAnnotatedStopPointRef().add(aspsB);
 		return spds;
 	}
 }
