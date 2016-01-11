@@ -38,8 +38,8 @@ public class NewLinesRequest {
 		NewLinesRequest nlr = new NewLinesRequest();
 		
 		Util ut = new Util();
-				
-		
+
+			
 		LinesDeliveryStructure lds = nlr.getLinesDdlivery(detailLevel.stops);
 		
 		Siri siri = new Siri();
@@ -167,6 +167,7 @@ public class NewLinesRequest {
 		NaturalLanguageStringStructure directionName = new NaturalLanguageStringStructure();
 		directionName.setValue("Tatooine");
 		rds.getDirectionName().add(directionName );
+
 		
 		directions.getDirection().add(rds);
 		
@@ -191,8 +192,8 @@ public class NewLinesRequest {
 			BigDecimal stopLon2 = new BigDecimal(-74.23456);
 			
 			LocationStructure location = new LocationStructure();
-			location.setLongitude(stopLon);
-			location.setLatitude(stopLat);
+			location.setLongitude(stopLon.setScale(6, BigDecimal.ROUND_HALF_DOWN));
+			location.setLatitude(stopLat.setScale(6, BigDecimal.ROUND_HALF_DOWN));
 						
 			LocationStructure location2 = new LocationStructure();
 			location2.setLongitude(stopLon2);
