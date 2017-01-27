@@ -33,6 +33,11 @@ import javax.xml.validation.Validator;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -196,5 +201,14 @@ public class Util {
 		}
 		reader.close();
 		return fileData.toString();
+	}
+	
+	
+	public String getStringFromURL(String url) throws IOException {
+		OkHttpClient client = new OkHttpClient();
+		Request request = new Request.Builder().url(url).build();
+		Response response = client.newCall(request).execute();
+		
+		return response.body().string();
 	}
 }
